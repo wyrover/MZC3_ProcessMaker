@@ -22,9 +22,7 @@ using namespace std;
         std::size_t cchPath = strlen(pszPath);
         if (cchPath == 0)
             return;
-        LPSTR pchPrev = reinterpret_cast<LPSTR>(
-            _mbsdec(reinterpret_cast<LPBYTE>(pszPath),
-                    reinterpret_cast<LPBYTE>(pszPath) + cchPath));
+        LPSTR pchPrev = CharPrevA(pszPath, pszPath + cchPath);
         if (*pchPrev != '\\' && *pchPrev != '/')
         {
             pszPath[cchPath++] = '\\';
@@ -52,9 +50,7 @@ using namespace std;
         std::size_t cchPath = strlen(pszPath);
         if (cchPath == 0)
             return;
-        LPSTR pchPrev = reinterpret_cast<LPSTR>(_mbsdec(
-            reinterpret_cast<LPBYTE>(pszPath),
-            reinterpret_cast<LPBYTE>(pszPath) + cchPath));
+        LPSTR pchPrev = CharPrevA(pszPath, pszPath + cchPath);
         if (*pchPrev == '\\' || *pchPrev == '/')
             *pchPrev = '\0';
     }
