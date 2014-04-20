@@ -69,10 +69,15 @@ using namespace std;
     LPSTR MzcFindFileNameA(LPSTR pszPath)
     {
         assert(pszPath);
-        LPSTR pch1 = reinterpret_cast<LPSTR>(
-            _mbsrchr(reinterpret_cast<LPBYTE>(pszPath), '\\'));
-        LPSTR pch2 = reinterpret_cast<LPSTR>(
-            _mbsrchr(reinterpret_cast<LPBYTE>(pszPath), '/'));
+        #ifdef ANSI
+            LPSTR pch1 = strrchr(pszPath, '\\');
+            LPSTR pch2 = strrchr(pszPath, '/');
+        #else
+            LPSTR pch1 = reinterpret_cast<LPSTR>(
+                _mbsrchr(reinterpret_cast<LPBYTE>(pszPath), '\\'));
+            LPSTR pch2 = reinterpret_cast<LPSTR>(
+                _mbsrchr(reinterpret_cast<LPBYTE>(pszPath), '/'));
+        #endif
         if (pch1 == NULL && pch2 == NULL)
             return pszPath;
         if (pch1 == NULL)
@@ -107,8 +112,12 @@ LPSTR MzcFindDotExtA(LPSTR pszPath)
 {
     assert(pszPath);
     pszPath = MzcFindFileNameA(pszPath);
-    LPSTR pch = reinterpret_cast<LPSTR>(
-        _mbsrchr(reinterpret_cast<LPBYTE>(pszPath), '.'));
+    #ifdef ANSI
+        LPSTR pch = strrchr(pszPath, '.');
+    #else
+        LPSTR pch = reinterpret_cast<LPSTR>(
+            _mbsrchr(reinterpret_cast<LPBYTE>(pszPath), '.'));
+    #endif
     if (pch)
         return pch;
     else
