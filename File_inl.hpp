@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////
-// File_inl.h -- Win32 file or pipe wrapper
+// File_inl.hpp -- Win32 file or pipe wrapper
 // This file is part of MZC3.  See file "ReadMe.txt" and "License.txt".
 ////////////////////////////////////////////////////////////////////////////
 
@@ -104,16 +104,14 @@ MZC_INLINE MFile& MFile::operator=(HANDLE hFile)
         ::GetFileInformationByHandle(hFile, &info));
 #endif
     if (m_hFile != hFile)
-    {
-        if (m_hFile != NULL && m_hFile != INVALID_HANDLE_VALUE)
-            CloseHandle();
-        m_hFile = hFile;
-    }
+        Attach(hFile);
     return *this;
 }
 
-MZC_INLINE VOID MFile::Attach(HANDLE hFile)
+MZC_INLINE void MFile::Attach(HANDLE hFile)
 {
+    if (m_hFile != NULL && m_hFile != INVALID_HANDLE_VALUE)
+        CloseHandle();
     assert(hFile != NULL && hFile != INVALID_HANDLE_VALUE);
     assert(m_hFile == NULL || m_hFile == INVALID_HANDLE_VALUE);
 #ifdef _DEBUG
@@ -222,7 +220,7 @@ MZC_INLINE DWORD MFile::SeekToEnd()
     return SetFilePointer(0, NULL, FILE_END);
 }
 
-MZC_INLINE VOID MFile::SeekToBegin()
+MZC_INLINE void MFile::SeekToBegin()
 {
     assert(m_hFile != NULL && m_hFile != INVALID_HANDLE_VALUE);
     SetFilePointer(0, NULL, FILE_BEGIN);
@@ -260,21 +258,21 @@ MZC_INLINE BOOL MFile::FlushFileBuffers()
 MZC_INLINE BOOL MFile::WriteSzA(LPCSTR psz)
 {
     assert(psz);
-    INT cb = lstrlenA(psz);
+    int cb = lstrlenA(psz);
     return WriteBinary(psz, (DWORD) cb);
 }
 
 MZC_INLINE BOOL MFile::WriteSzW(LPCWSTR psz)
 {
     assert(psz);
-    INT cb = lstrlenW(psz) * sizeof(WCHAR);
+    int cb = lstrlenW(psz) * sizeof(WCHAR);
     return WriteBinary(psz, (DWORD) cb);
 }
 
 MZC_INLINE BOOL MFile::WriteSz(LPCTSTR psz)
 {
     assert(psz);
-    INT cb = lstrlen(psz) * sizeof(TCHAR);
+    int cb = lstrlen(psz) * sizeof(TCHAR);
     return WriteBinary(psz, (DWORD) cb);
 }
 

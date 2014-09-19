@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////
-// SecurityAttributes.h -- Win32 security attributes
+// SecurityAttributes.hpp -- Win32 security attributes
 // This file is part of MZC3.  See file "ReadMe.txt" and "License.txt".
 ////////////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,7 @@ public:
 #ifndef MZC_NO_INLINING
     #undef MZC_INLINE
     #define MZC_INLINE inline
-    #include "SecurityAttributes_inl.h"
+    #include "SecurityAttributes_inl.hpp"
 #endif
 
 #endif  // ndef __MZC3_SECURITYATTRIBUTES__

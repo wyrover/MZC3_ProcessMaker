@@ -8,5 +8,5 @@
 #ifdef MZC_NO_INLINING
     #undef MZC_INLINE
     #define MZC_INLINE  /*empty*/
-    #include "SecurityAttributes_inl.h"
+    #include "SecurityAttributes_inl.hpp"
 #endif

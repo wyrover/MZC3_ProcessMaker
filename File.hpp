@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////
-// File.h -- Win32 file or pipe wrapper
+// File.hpp -- Win32 file or pipe wrapper
 // This file is part of MZC3.  See file "ReadMe.txt" and "License.txt".
 ////////////////////////////////////////////////////////////////////////////
 
@@ -223,7 +223,7 @@ LPWSTR MzcSetDotExtW(LPWSTR pszPath, LPCWSTR pszDotExt);
 #ifndef MZC_NO_INLINING
     #undef MZC_INLINE
     #define MZC_INLINE inline
-    #include "File_inl.h"
+    #include "File_inl.hpp"
 #endif
 
 #endif  // ndef __MZC3_FILE__
