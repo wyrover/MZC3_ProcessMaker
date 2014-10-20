@@ -240,7 +240,7 @@ MZC_INLINE DWORDLONG MFile::GetFileSize64() const
     if (dwLow == 0xFFFFFFFF && ::GetLastError() != NO_ERROR)
         return 0;
     else
-        return MzcMakeLongLong(dwLow, dwHigh);
+        return MAKELONGLONG(dwLow, dwHigh);
 }
 
 MZC_INLINE BOOL MFile::SetEndOfFile()
@@ -307,8 +307,8 @@ MZC_INLINE BOOL MFile::LockFile(DWORD dwFileOffsetLow, DWORD dwFileOffsetHigh,
 
 MZC_INLINE BOOL MFile::LockFile(DWORDLONG dwlFileOffset, DWORDLONG dwlNumberOfBytesToLock)
 {
-    return MFile::LockFile(MzcLoLong(dwlFileOffset), MzcHiLong(dwlFileOffset),
-        MzcLoLong(dwlNumberOfBytesToLock), MzcHiLong(dwlNumberOfBytesToLock));
+    return MFile::LockFile(LOLONG(dwlFileOffset), HILONG(dwlFileOffset),
+        LOLONG(dwlNumberOfBytesToLock), HILONG(dwlNumberOfBytesToLock));
 }
 
 MZC_INLINE BOOL MFile::LockFileEx(DWORD dwFlags, DWORD dwReserved,
@@ -324,7 +324,7 @@ MZC_INLINE BOOL MFile::LockFileEx(DWORD dwFlags, DWORD dwReserved,
     DWORDLONG dwlNumberOfBytesToLock, LPOVERLAPPED lpOverlapped)
 {
     return MFile::LockFileEx(dwFlags, dwReserved,
-        MzcLoLong(dwlNumberOfBytesToLock), MzcHiLong(dwlNumberOfBytesToLock),
+        LOLONG(dwlNumberOfBytesToLock), HILONG(dwlNumberOfBytesToLock),
         lpOverlapped);
 }
 
@@ -338,8 +338,8 @@ MZC_INLINE BOOL MFile::UnlockFile(DWORD dwFileOffsetLow, DWORD dwFileOffsetHigh,
 
 MZC_INLINE BOOL MFile::UnlockFile(DWORDLONG dwFileOffset, DWORDLONG dwNumberOfBytesToUnlock)
 {
-    return MFile::UnlockFile(MzcLoLong(dwFileOffset), MzcHiLong(dwFileOffset),
-        MzcLoLong(dwNumberOfBytesToUnlock), MzcHiLong(dwNumberOfBytesToUnlock));
+    return MFile::UnlockFile(LOLONG(dwFileOffset), HILONG(dwFileOffset),
+        LOLONG(dwNumberOfBytesToUnlock), HILONG(dwNumberOfBytesToUnlock));
 }
 
 MZC_INLINE BOOL MFile::UnlockFileEx(DWORD dwReserved, DWORD dwNumberOfBytesToUnlockLow,
@@ -353,8 +353,8 @@ MZC_INLINE BOOL MFile::UnlockFileEx(DWORD dwReserved, DWORD dwNumberOfBytesToUnl
 MZC_INLINE BOOL MFile::UnlockFileEx(DWORD dwReserved, DWORDLONG dwlNumberOfBytesToUnlock,
     LPOVERLAPPED lpOverlapped)
 {
-    return MFile::UnlockFileEx(dwReserved, MzcLoLong(dwlNumberOfBytesToUnlock),
-        MzcHiLong(dwlNumberOfBytesToUnlock), lpOverlapped);
+    return MFile::UnlockFileEx(dwReserved, LOLONG(dwlNumberOfBytesToUnlock),
+        HILONG(dwlNumberOfBytesToUnlock), lpOverlapped);
 }
 
 MZC_INLINE BOOL MFile::ReadFileEx(LPVOID pBuffer, DWORD cbToRead, 

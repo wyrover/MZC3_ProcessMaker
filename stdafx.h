@@ -14,10 +14,17 @@
 ////////////////////////////////////////////////////////////////////////////
 // for 64-bit
 
-#define MzcLoLong(dwl) static_cast<DWORD>(dwl)
-#define MzcHiLong(dwl) static_cast<DWORD>(((dwl) >> 32) & 0xFFFFFFFF)
-#define MzcMakeLongLong(lo,hi) \
-    ((static_cast<DWORDLONG>(hi) << 32) | static_cast<DWORD>(lo))
+#ifndef LOLONG
+    #define LOLONG(dwl) static_cast<DWORD>(dwl)
+#endif
+#ifndef HILONG
+    #define HILONG(dwl) static_cast<DWORD>(((dwl) >> 32) & 0xFFFFFFFF)
+#endif
+#ifndef MAKELONGLONG
+    #define MAKELONGLONG(lo,hi) \
+        (static_cast<DWORD>(lo) | \
+            (static_cast<DWORDLONG>(static_cast<DWORD>(hi)) << 32))
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 
